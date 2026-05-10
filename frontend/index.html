@@ -59,22 +59,24 @@
         </section>
 
         <!-- Chat Section -->
-        <section id="chat" class="chat">
-            <div class="chat-header">
-                <h2>Cognix Terminal</h2>
-                <div class="status-indicator"><span class="dot"></span> Online</div>
+        <section id="chat" class="chat-section">
+            <div class="section-badge">AI Chat</div>
+            <h2>Chat with Cognix</h2>
+            <div class="chat-container">
+                <div id="chat-box" class="chat-box"></div>
+                <form id="chat-form" class="chat-form">
+                    <input type="text" id="chat-input" placeholder="Ask me anything..." required>
+                    <button type="submit">Send</button>
+                </form>
             </div>
-            <div id="chat-box" class="chat-box">
-                <div class="message ai">Hello! I am Cognix. How can I assist you today?</div>
-            </div>
-            <form id="chat-form" class="chat-form">
-                <input id="chat-input" type="text" placeholder="Send a message to Cognix..." autocomplete="off" />
-                <button type="submit" id="send-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </button>
-            </form>
         </section>
     </main>
+    <!-- Set backend URL for production deployments -->
+    <script>
+        // For production (Netlify): Update this URL to your Render backend
+        // Example: window.BACKEND_URL = 'https://cognix-backend.onrender.com/chat';
+        // window.BACKEND_URL = 'https://cognix-backend.onrender.com/chat';
+    </script>
     <script src="app.js"></script>
 </body>
 </html>

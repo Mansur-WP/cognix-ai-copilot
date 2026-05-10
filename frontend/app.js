@@ -6,8 +6,29 @@ const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
 const chatBox = document.getElementById('chat-box');
 
-// Backend API endpoint
-const API_URL = 'http://127.0.0.1:8000/chat';
+// Determine the API URL based on environment
+// For development: http://localhost:8000 or http://127.0.0.1:8000
+// For production: Set the RENDER_BACKEND_URL environment variable or update this URL
+const getAPIUrl = () => {
+  // Check if running in development (localhost)
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://127.0.0.1:8000/chat';
+  }
+  
+  // For production, use the Render backend URL
+  // Update this with your actual Render backend URL when deploying to Netlify
+  // Example: https://cognix-backend.onrender.com/chat
+  const backendUrl = window.BACKEND_URL || 'https://cognix-backend.onrender.com/chat';
+  return backendUrl;
+};
+
+const API_URL = getAPIUrl();
+
+// Log the API endpoint being used (remove in production for security)
+console.log('Using API endpoint:', API_URL);
+
+// Add initial AI message
+addMessage("Hello! I am Cognix. How can I assist you today?", 'ai');
 
 // Function to add a message bubble to chat
 function addMessage(text, sender) {
@@ -76,4 +97,4 @@ function sendMessageToAPI(userMsg) {
         addMessage('Error: Unable to connect to AI backend. Make sure the server is running on port 8000.', 'ai');
         console.error('API error:', error);
     });
-}
+}
