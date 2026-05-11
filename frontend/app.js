@@ -6,6 +6,8 @@ const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
 const chatMessages = document.getElementById('chat-box');
 const sendBtn = document.querySelector('.send-btn');
+const plusBtn = document.getElementById('plus-btn');
+const toolMenu = document.getElementById('tool-menu');
 
 // Determine the API URL based on environment
 // For development: http://localhost:8000 or http://127.0.0.1:8000
@@ -13,7 +15,7 @@ const sendBtn = document.querySelector('.send-btn');
 const getAPIUrl = () => {
   // Check if running in development (localhost)
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    return 'http://127.0.0.1:8001/chat';
+    return 'http://127.0.0.1:8002/chat';
   }
 
   // For production, use the Render backend URL.
@@ -30,6 +32,7 @@ console.log('Using API endpoint:', API_URL);
 
 // State management
 let isTyping = false;
+let isMenuOpen = false;
 
 // Add initial AI message
 addMessage("Hello! I am Cognix, your intelligent AI copilot. How can I assist you today?", 'ai');
@@ -93,6 +96,67 @@ function handleInputChange() {
     updateSendButton();
 }
 
+// Function to toggle tool menu
+function toggleToolMenu() {
+    isMenuOpen = !isMenuOpen;
+    if (isMenuOpen) {
+        toolMenu.classList.add('show');
+        plusBtn.classList.add('active');
+    } else {
+        toolMenu.classList.remove('show');
+        plusBtn.classList.remove('active');
+    }
+}
+
+// Function to handle tool actions
+function handleToolAction(action) {
+    switch (action) {
+        case 'upload-image':
+            // Placeholder for image upload functionality
+            addMessage("Image upload feature coming soon! For now, please describe the image you'd like me to help with.", 'ai');
+            break;
+        case 'upload-file':
+            // Placeholder for file upload functionality
+            addMessage("File upload feature coming soon! For now, please paste the content or describe what you'd like me to help with.", 'ai');
+            break;
+        case 'attach-document':
+            // Placeholder for document attachment functionality
+            addMessage("Document attachment feature coming soon! For now, please paste the document content or describe what you'd like me to help with.", 'ai');
+            break;
+        case 'clear-chat':
+            // Clear all messages except the initial AI greeting
+            const messages = chatMessages.querySelectorAll('.message');
+            messages.forEach((msg, index) => {
+                if (index > 0) { // Keep the first message (initial greeting)
+                    msg.remove();
+                }
+            });
+            addMessage("Chat cleared! How can I help you today?", 'ai');
+            break;
+    }
+    // Close the menu after action
+    toggleToolMenu();
+}
+
+// Handle plus button click
+plusBtn.addEventListener('click', toggleToolMenu);
+
+// Handle tool menu clicks
+toolMenu.addEventListener('click', (e) => {
+    const toolOption = e.target.closest('.tool-option');
+    if (toolOption) {
+        const action = toolOption.dataset.action;
+        handleToolAction(action);
+    }
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!plusBtn.contains(e.target) && !toolMenu.contains(e.target) && isMenuOpen) {
+        toggleToolMenu();
+    }
+});
+
 // Handle chat form submit
 chatForm.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -103,6 +167,11 @@ chatForm.addEventListener('submit', function(e) {
     chatInput.value = '';
     autoResizeTextarea();
     chatInput.focus();
+
+    // Close tool menu if open
+    if (isMenuOpen) {
+        toggleToolMenu();
+    }
 
     // Send user message to backend API
     sendMessageToAPI(userMsg);
