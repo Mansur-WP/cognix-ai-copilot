@@ -18,7 +18,7 @@ const getAPIUrl = () => {
   // For production, use the Render backend URL
   // Update this with your actual Render backend URL when deploying to Netlify
   // Example: https://cognix-backend.onrender.com/chat
-  const backendUrl = window.BACKEND_URL || 'https://cognix-backend.onrender.com/chat';
+  const backendUrl = window.BACKEND_URL || 'https://cognix-ai-copilot.onrender.com';
   return backendUrl;
 };
 
