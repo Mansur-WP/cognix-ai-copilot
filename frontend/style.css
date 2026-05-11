@@ -488,6 +488,26 @@ body {
         width: 40px;
         height: 40px;
     }
+
+    .faq-section {
+        padding: 3rem 0;
+        text-align: left;
+    }
+
+    .faq-section h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .faq-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        padding: 0 0.5rem;
+    }
+
+    .faq-item {
+        padding: 1.5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -507,6 +527,19 @@ body {
     .send-btn {
         width: 36px;
         height: 36px;
+    }
+
+    .faq-section {
+        padding: 2.5rem 0;
+    }
+
+    .faq-section h2 {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .faq-item {
+        padding: 1.2rem;
     }
 }
 
@@ -624,7 +657,7 @@ body {
 }
 .faq-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     max-width: 1000px;
     margin: 0 auto;
